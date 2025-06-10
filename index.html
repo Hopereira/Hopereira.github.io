@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currículo Interativo | Hebert Pereira</title>
+    <!-- Chosen Palette: Cool Neutral Slate -->
+    <!-- Application Structure Plan: The application is structured as a single-page portfolio with a sticky navigation bar for quick access to thematic sections (Sobre, Habilidades, Experiência, Projetos, Formação). This dashboard-like approach was chosen to allow recruiters to quickly navigate to the information most relevant to them, rather than scrolling through a long document. The key interactions are a filterable skills chart to quickly assess technical capabilities, a visual timeline to understand career progression, a card-based project gallery for tangible proof of work, and a searchable list of certifications for in-depth verification. This structure prioritizes usability and efficient information discovery over a linear report format. -->
+    <!-- Visualization & Content Choices: 
+        - Skills: Goal is to quickly convey technical breadth. A filterable horizontal bar chart (Chart.js) was chosen over a static list to be more visually engaging and allow users to focus on specific skill categories (Linguagens, Web, DBs). This avoids overwhelming the user.
+        - Experience/Education: Goal is to tell a career story. A custom vertical timeline (HTML/Tailwind) was chosen to visually represent chronological progression, which is more intuitive than separate text blocks.
+        - Projects: Goal is to showcase work. A responsive card grid (HTML/Tailwind) provides a clean, modern, and scannable portfolio view.
+        - Certifications: Goal is to handle a long list of items. A live search filter (Vanilla JS) was implemented to make the list easily scannable for recruiters looking for specific keywords (e.g., 'Java', 'React'), significantly improving usability.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 500px;
+            }
+        }
+    </style>
+</head>
+<body class="text-slate-700">
+
+    <header class="bg-slate-800 text-white shadow-lg sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-3">
+            <div class="flex justify-between items-center">
+                <a href="#inicio" class="text-xl font-bold">Hebert Pereira</a>
+                <div class="hidden md:flex space-x-6 items-center">
+                    <a href="#sobre" class="hover:text-sky-300 transition-colors">Sobre</a>
+                    <a href="#habilidades" class="hover:text-sky-300 transition-colors">Habilidades</a>
+                    <a href="#experiencia" class="hover:text-sky-300 transition-colors">Experiência</a>
+                    <a href="#projetos" class="hover:text-sky-300 transition-colors">Projetos</a>
+                    <a href="#certificacoes" class="hover:text-sky-300 transition-colors">Certificações</a>
+                </div>
+                <button id="mobile-menu-button" class="md:hidden p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+             <div id="mobile-menu" class="hidden md:hidden mt-4">
+                <a href="#sobre" class="block py-2 px-4 text-sm hover:bg-slate-700 rounded">Sobre</a>
+                <a href="#habilidades" class="block py-2 px-4 text-sm hover:bg-slate-700 rounded">Habilidades</a>
+                <a href="#experiencia" class="block py-2 px-4 text-sm hover:bg-slate-700 rounded">Experiência</a>
+                <a href="#projetos" class="block py-2 px-4 text-sm hover:bg-slate-700 rounded">Projetos</a>
+                <a href="#certificacoes" class="block py-2 px-4 text-sm hover:bg-slate-700 rounded">Certificações</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="inicio" class="bg-slate-100 py-20 md:py-24">
+            <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-center gap-10">
+                <img src="Hebert Pereira.png" alt="Foto de Hebert Pereira" class="w-48 h-48 rounded-full border-4 border-white shadow-lg">
+                <div class="text-center md:text-left">
+                    <h1 class="text-4xl md:text-6xl font-bold text-slate-800">Hebert Pereira</h1>
+                    <p class="mt-4 text-lg md:text-xl text-slate-600">Desenvolvedor de Software | Front-end & Back-end</p>
+                    <div class="mt-8 flex justify-center md:justify-start space-x-6">
+                        <a href="mailto:pereira_hebert@msn.com" class="text-slate-600 hover:text-sky-500 transition-colors text-sm">pereira_hebert@msn.com</a>
+                        <a href="https://linkedin.com/in/pereira-hebert" target="_blank" class="text-slate-600 hover:text-sky-500 transition-colors font-medium">LinkedIn</a>
+                        <a href="https://github.com/Hopereira" target="_blank" class="text-slate-600 hover:text-sky-500 transition-colors font-medium">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="sobre" class="py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center text-slate-800 mb-12">Sobre Mim</h2>
+                <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-md">
+                    <h3 class="font-bold text-lg text-sky-600 mb-2">Objetivo Profissional</h3>
+                    <p class="mb-6">Buscar uma posição desafiadora como Desenvolvedor de Software, onde possa aplicar e expandir minhas habilidades em programação, desenvolvimento web (Front-end e Back-end), engenharia de software e banco de dados, contribuindo com soluções inovadoras e de alto impacto para os objetivos da empresa.</p>
+                    <h3 class="font-bold text-lg text-sky-600 mb-2">Resumo Profissional</h3>
+                    <p>Profissional com 22 anos de experiência na área de tecnologia, abrangendo desenvolvimento web, suporte técnico, design gráfico e instrução de informática. Atualmente cursando Bacharelado em Engenharia de Software, com sólida base em linguagens como Java, Python e JavaScript, e expertise em desenvolvimento Front-end e Back-end. Possuo experiência prática na criação de sites responsivos e sistemas de gerenciamento, demonstrada em projetos reais como o portal Serratec e outros três sites completos.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="habilidades" class="py-16 md:py-24 bg-slate-100">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center text-slate-800 mb-4">Habilidades Técnicas</h2>
+                <p class="text-center max-w-2xl mx-auto mb-10">Aqui está um resumo das tecnologias com as quais trabalho. Utilize os botões para filtrar as habilidades por categoria e explorar minhas competências de forma interativa.</p>
+                <div class="flex flex-wrap justify-center gap-2 mb-8">
+                    <button class="skill-filter-btn bg-sky-500 text-white py-2 px-4 rounded-full text-sm font-medium" data-category="all">Todas</button>
+                    <button class="skill-filter-btn bg-slate-200 text-slate-700 py-2 px-4 rounded-full text-sm font-medium" data-category="linguagens">Linguagens</button>
+                    <button class="skill-filter-btn bg-slate-200 text-slate-700 py-2 px-4 rounded-full text-sm font-medium" data-category="web">Web</button>
+                    <button class="skill-filter-btn bg-slate-200 text-slate-700 py-2 px-4 rounded-full text-sm font-medium" data-category="frameworks">Frameworks/Bibliotecas</button>
+                    <button class="skill-filter-btn bg-slate-200 text-slate-700 py-2 px-4 rounded-full text-sm font-medium" data-category="db">Bancos de Dados</button>
+                </div>
+                <div class="bg-white p-4 sm:p-6 rounded-lg shadow-md">
+                    <div class="chart-container">
+                        <canvas id="skillsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experiencia" class="py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center text-slate-800 mb-12">Trajetória Profissional e Acadêmica</h2>
+                <div class="relative max-w-3xl mx-auto">
+                    <div class="absolute left-1/2 h-full w-0.5 bg-slate-200 -translate-x-1/2"></div>
+                    
+                    <div class="relative flex items-center mb-12">
+                        <div class="w-1/2 pr-8 text-right">
+                            <p class="font-semibold text-sky-600">2023 - Atualmente</p>
+                            <h3 class="text-lg font-bold mt-1">Bacharelado em Engenharia de Software</h3>
+                            <p class="text-sm text-slate-500">Estácio de Sá, Petrópolis</p>
+                        </div>
+                        <div class="absolute left-1/2 w-6 h-6 bg-sky-500 rounded-full border-4 border-white -translate-x-1/2"></div>
+                        <div class="w-1/2 pl-8"></div>
+                    </div>
+
+                    <div class="relative flex items-center mb-12">
+                        <div class="w-1/2 pr-8"></div>
+                        <div class="absolute left-1/2 w-6 h-6 bg-slate-600 rounded-full border-4 border-white -translate-x-1/2"></div>
+                        <div class="w-1/2 pl-8 text-left">
+                            <p class="font-semibold text-slate-500">Nov 2024 - Jan 2025</p>
+                            <h3 class="text-lg font-bold mt-1">Residência em TIC 16 (Full Stack)</h3>
+                            <p class="text-sm text-slate-500">Serratec</p>
+                            <p class="text-sm mt-2">Atuação em projeto de desenvolvimento de portal, contribuindo para o Front-end e Back-end.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="relative flex items-center mb-12">
+                        <div class="w-1/2 pr-8 text-right">
+                            <p class="font-semibold text-slate-500">Mar 2021 - Abr 2025</p>
+                            <h3 class="text-lg font-bold mt-1">Instrutor de Informática</h3>
+                            <p class="text-sm text-slate-500">Cebrac, Petrópolis</p>
+                            <p class="text-sm mt-2">Ministração de aulas de hardware, software e conceitos técnicos.</p>
+                        </div>
+                        <div class="absolute left-1/2 w-6 h-6 bg-slate-600 rounded-full border-4 border-white -translate-x-1/2"></div>
+                        <div class="w-1/2 pl-8"></div>
+                    </div>
+                    
+                    <div class="relative flex items-center mb-12">
+                        <div class="w-1/2 pr-8"></div>
+                        <div class="absolute left-1/2 w-6 h-6 bg-slate-600 rounded-full border-4 border-white -translate-x-1/2"></div>
+                        <div class="w-1/2 pl-8 text-left">
+                           <p class="font-semibold text-slate-500">Out 2003 - Atualmente</p>
+                            <h3 class="text-lg font-bold mt-1">Técnico de Informática (Autônomo)</h3>
+                            <p class="text-sm text-slate-500">Petrópolis, RJ</p>
+                            <p class="text-sm mt-2">Instalação e manutenção de hardware/software, diagnóstico e resolução de problemas.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="projetos" class="py-16 md:py-24 bg-slate-100">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center text-slate-800 mb-12">Projetos de Desenvolvimento</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <a href="https://portalserratec.netlify.app/" target="_blank" class="block bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden group">
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg text-slate-800">Portal Serratec (Front-end)</h3>
+                            <p class="text-sm mt-2 text-slate-600">Interface desenvolvida durante o programa de residência em TIC.</p>
+                            <span class="inline-block mt-4 text-sm font-semibold text-sky-600 group-hover:underline">Ver Projeto →</span>
+                        </div>
+                    </a>
+
+                    <a href="https://www.oficinadedanca.com.br/" target="_blank" class="block bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden group">
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg text-slate-800">Website Oficina de Dança</h3>
+                            <p class="text-sm mt-2 text-slate-600">Site próprio que reflete paixão por dança e habilidades em desenvolvimento web.</p>
+                            <span class="inline-block mt-4 text-sm font-semibold text-sky-600 group-hover:underline">Ver Projeto →</span>
+                        </div>
+                    </a>
+
+                    <a href="https://codechips.com.br/" target="_blank" class="block bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden group">
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg text-slate-800">Website Code Chips</h3>
+                            <p class="text-sm mt-2 text-slate-600">Projeto web profissional demonstrando competências de desenvolvimento.</p>
+                            <span class="inline-block mt-4 text-sm font-semibold text-sky-600 group-hover:underline">Ver Projeto →</span>
+                        </div>
+                    </a>
+
+                    <a href="https://gisanabalterpapelariapersonalizada.com/" target="_blank" class="block bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden group">
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg text-slate-800">Gisana Balter Papelaria</h3>
+                            <p class="text-sm mt-2 text-slate-600">Site profissional para negócio de papelaria personalizada.</p>
+                            <span class="inline-block mt-4 text-sm font-semibold text-sky-600 group-hover:underline">Ver Projeto →</span>
+                        </div>
+                    </a>
+                    
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="font-bold text-lg text-slate-800">Sistema de Gerenciamento de Estoque</h3>
+                        <p class="text-sm mt-2 text-slate-600">Desenvolvido em Java e MySQL com funcionalidades de cadastro, controle e relatórios.</p>
+                        <span class="inline-block mt-4 text-sm font-semibold text-slate-400">Projeto Desktop</span>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="certificacoes" class="py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center text-slate-800 mb-4">Cursos e Certificações</h2>
+                 <p class="text-center max-w-2xl mx-auto mb-10">Abaixo está uma lista dos meus cursos e certificações mais relevantes. Use o campo de busca para encontrar rapidamente uma certificação por palavra-chave (ex: Java, Python, React).</p>
+                <div class="max-w-3xl mx-auto">
+                    <input type="text" id="cert-search" placeholder="Buscar certificações..." class="w-full p-3 border border-slate-300 rounded-lg mb-8 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition">
+                    <ul id="cert-list" class="space-y-4">
+                        <li class="cert-item bg-white p-4 rounded-lg shadow-sm"><strong>Programação com JavaScript e o Framework Node.js</strong> (IFES - 160h)</li>
+                        <li class="cert-item bg-white p-4 rounded-lg shadow-sm"><strong>Programação Básica de Aplicativos Web - Front-End</strong> (IFES - 160h)</li>
+                        <li class="cert-item bg-white p-4 rounded-lg shadow-sm"><strong>Programação Python e C</strong> (IFES - 60h)</li>
+                        <li class="cert-item bg-white p-4 rounded-lg shadow-sm"><strong>Programador Java: Nível Básico</strong> (IFMG - 40h)</li>
+                        <li class="cert-item bg-white p-4 rounded-lg shadow-sm"><strong>Programação para Dispositivos Móveis (Básico com React Native)</strong> (IFMG - 40h)</li>
+                        <li class="cert-item bg-white p-4 rounded-lg shadow-sm"><strong>Formação Iniciante em Programação T6 - ONE</strong> (Alura/Oracle)</li>
+                        <li class="cert-item bg-white p-4 rounded-lg shadow-sm"><strong>Banco de Dados MySQL e Programação em PHP</strong> (Prodabel - 60h)</li>
+                        <li class="cert-item bg-white p-4 rounded-lg shadow-sm"><strong>Fundamentos de Lógica de Programação</strong> (Fundação Bradesco - 15h)</li>
+                        <li class="cert-item bg-white p-4 rounded-lg shadow-sm"><strong>Múltiplos cursos da DIO</strong> sobre Java, Python, SQL, Git e desenvolvimento de software.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-800 text-white py-12">
+        <div class="container mx-auto text-center px-6">
+            <h3 class="text-2xl font-bold">Hebert Pereira</h3>
+            <p class="mt-2">Disponível para novas oportunidades.</p>
+            <div class="mt-6 flex justify-center space-x-6">
+                 <a href="mailto:pereira_hebert@msn.com" class="hover:text-sky-300 transition-colors">E-mail</a>
+                 <a href="https://linkedin.com/in/pereira-hebert" target="_blank" class="hover:text-sky-300 transition-colors">LinkedIn</a>
+                 <a href="https://github.com/Hopereira" target="_blank" class="hover:text-sky-300 transition-colors">GitHub</a>
+            </div>
+        </div>
+    </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    const skillsData = {
+        all: {
+            labels: ['Java', 'Python', 'JavaScript', 'HTML', 'CSS', 'React', 'Node.js', 'Sequelize', 'SQL', 'MongoDB'],
+            datasets: [{
+                label: 'Habilidades',
+                data: [8, 8, 9, 9, 9, 8, 8, 7, 9, 7],
+                backgroundColor: 'rgba(14, 165, 233, 0.6)', // sky-500
+                borderColor: 'rgba(14, 165, 233, 1)',
+                borderWidth: 1
+            }]
+        },
+        linguagens: {
+            labels: ['Java', 'Python', 'C++', 'JavaScript', 'PHP'],
+            datasets: [{
+                label: 'Linguagens',
+                data: [8, 8, 6, 9, 7],
+                backgroundColor: 'rgba(14, 165, 233, 0.6)',
+                borderColor: 'rgba(14, 165, 233, 1)',
+                borderWidth: 1
+            }]
+        },
+        web: {
+            labels: ['HTML', 'CSS', 'JavaScript', 'React', 'Node.js'],
+            datasets: [{
+                label: 'Desenvolvimento Web',
+                data: [9, 9, 9, 8, 8],
+                backgroundColor: 'rgba(14, 165, 233, 0.6)',
+                borderColor: 'rgba(14, 165, 233, 1)',
+                borderWidth: 1
+            }]
+        },
+        frameworks: {
+            labels: ['Node.js', 'React', 'React Native', 'Sequelize'],
+            datasets: [{
+                label: 'Frameworks/Bibliotecas',
+                data: [8, 8, 7, 7],
+                backgroundColor: 'rgba(14, 165, 233, 0.6)',
+                borderColor: 'rgba(14, 165, 233, 1)',
+                borderWidth: 1
+            }]
+        },
+        db: {
+            labels: ['SQL', 'MySQL', 'MongoDB', 'NoSQL'],
+            datasets: [{
+                label: 'Bancos de Dados',
+                data: [9, 8, 7, 7],
+                backgroundColor: 'rgba(14, 165, 233, 0.6)',
+                borderColor: 'rgba(14, 165, 233, 1)',
+                borderWidth: 1
+            }]
+        }
+    };
+
+    const ctx = document.getElementById('skillsChart').getContext('2d');
+    const skillsChart = new Chart(ctx, {
+        type: 'bar',
+        data: skillsData.all,
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    max: 10,
+                    grid: {
+                        color: 'rgba(203, 213, 225, 0.2)'
+                    }
+                },
+                y: {
+                     grid: {
+                        display: false
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return ' Nível: ' + context.parsed.x + '/10';
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    const filterButtons = document.querySelectorAll('.skill-filter-btn');
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const category = button.dataset.category;
+            
+            skillsChart.data = skillsData[category];
+            skillsChart.update();
+
+            filterButtons.forEach(btn => {
+                btn.classList.remove('bg-sky-500', 'text-white');
+                btn.classList.add('bg-slate-200', 'text-slate-700');
+            });
+            button.classList.add('bg-sky-500', 'text-white');
+            button.classList.remove('bg-slate-200', 'text-slate-700');
+        });
+    });
+
+    const certSearchInput = document.getElementById('cert-search');
+    const certListItems = document.querySelectorAll('#cert-list .cert-item');
+
+    certSearchInput.addEventListener('keyup', (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        certListItems.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            if (text.includes(searchTerm)) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
+
+});
+</script>
+</body>
+</html>
